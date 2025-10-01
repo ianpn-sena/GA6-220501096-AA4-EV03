@@ -1,15 +1,47 @@
 "use client";
 
+import { useState } from 'react';
 import { FormButton } from "@/components/Unimplemented";
 
 export default function Perfil() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const postForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const formData = new FormData(e.currentTarget);
+      const response = await fetch('https://localhost:8443/root', {
+        method: 'POST',
+        body: formData,
+      });
+ 
+      if (!response.ok) {
+        throw new Error('Error de servidor.');
+      }
+ 
+      //const data = await response.json()
+      console.log(await response.text());
+    } catch (err: any) {
+      setError(err.message);
+      console.error(err)
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
 
     if (form.checkValidity()) {
-      alert("¡Formulario competado!\n\nPero, funcionalidad no implementada aun.");
+      if (!isLoading) {
+        postForm(e);
+      }
+
       return;
     }
 
@@ -20,7 +52,7 @@ export default function Perfil() {
     <main className="flex flex-col items-center bg-background text-primary text-center p-8 sm:min-h-[500px]">
       <h1 className="text-4xl font-extrabold mb-8">Perfil</h1>
 
-      <form id="form_perfil" action="#" method="GET" className="flex flex-col items-center w-full" onSubmit={handleSubmitForm}>
+      <form id="form_perfil" action="https://localhost:8443" method="POST" className="flex flex-col items-center w-full" onSubmit={handleSubmitForm}>
         <div className="grid grid-cols-2 gap-4 my-4 items-center w-full">
           <label htmlFor="form_perfil_nombres" className="text-right">Nombre(s)</label>
           <input type="text" id="form_perfil_nombres" name="form_perfil_nombres" placeholder="Nombre(s)" className="border-solid border-1 p-1 w-full sm:w-3xs" required />
