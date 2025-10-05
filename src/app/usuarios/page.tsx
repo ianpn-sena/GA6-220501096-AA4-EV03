@@ -43,12 +43,14 @@ export default function ViewUsers() {
     <main className="flex flex-col items-center bg-background text-primary text-center p-8 sm:min-h-[500px]">
       <h1 className="text-4xl font-extrabold mb-8">Usuarios Registrados</h1>
 
-      <div className="flex flex-col items-center w-fvvvvvvvull">
+      <div className="flex flex-col items-center w-full">
         <div className="grid grid-cols-2 gap-4 my-4 items-center w-full">
-          {
-            // Se muestra un compoennte Usuario por cada usuario encontrado.
+          { loaded && users.length == 0 && (
+            <p className="text-xl col-span-2 text-center">No se encontraron usuarios registrados en el sistema.</p>
+          )}
+          { loaded && users.length > 0 && (
             users.map(u => <Usuario key={u.id} data={u} />)
-          }
+          )}
       </div>
     </div>
     </main>
