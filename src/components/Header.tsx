@@ -3,15 +3,21 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link"
 
+// Define el header y menú de navegación global de la aplicación
 export default function NavigationMenu() {
-    const pathname = usePathname();
+  // Se usará la ruta actual para renderizar condicionalmente algunos elementos
+  const pathname = usePathname();
 
-    const handleNotImplementedClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      alert("Funcionalidad no implementada aun.");
-    };
+  // Handler de click a elementos con funcionalidad no implementada.
+  const handleNotImplementedClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Muestra un mensaje de error.
+    e.preventDefault();
+    alert("Funcionalidad no implementada aun.");
+  };
 
-    return (
+  // Regresa el HTML del header.
+  // Contiene el menú de navegación. Los enlaces son resaltados para resaltar la página actual.
+  return (
     <nav className="block sm:flex justify-between p-4 text-center sm:text-start">
         <ul className="block">
             <li className="block lg:inline-block m-4"><Link href="/usuarios" className={pathname == "/usuarios" ? "underline font-extrabold" : "underline"}>Ver Usuarios</Link></li>

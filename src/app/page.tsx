@@ -1,3 +1,6 @@
+// Componente de la página principal.
+// Es insertado como el hijo principal del Layout principal.
+// Ver: ./layout.tsx
 export default function LandingAdministracion() {
   return (
     <main className="flex items-center bg-background text-primary text-center p-8 sm:min-h-[500px]">

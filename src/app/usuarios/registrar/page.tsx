@@ -3,40 +3,54 @@
 import { useState } from 'react';
 import { FormButton } from "@/components/Unimplemented";
 
-export default function Perfil() {
+// Define la página de registro de nuevos usuarios.
+export default function RegistrarUsuario() {
+  // Define el estado del componente actual. Se indica que inicialmente no se está cargando datos.
   const [isLoading, setIsLoading] = useState(false);
 
+  // Define la funcionalidad ejecutada al enviar el formulario de registro de usuarios.
   const postForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    // Se indica que se está iniciando a cargar datos.
     setIsLoading(true);
     
     try {
+      // Se buscan datos con un request POST, enviando los datos del formulario.
       const formData = new FormData(e.currentTarget);
       const response = await fetch(e.currentTarget.action, {
         method: 'POST',
         body: formData
       });
  
+      // Si se regresó un error distinto a 200 OK, se levanta un error.
       if (!response.ok) {
         throw new Error('Error de servidor.');
       }
 
+      // Se le indica al usuario que se creó un usuario exitosamente.
       alert("Usuario creado exitosamente!");
     } catch (err : unknown) {
+      // Si se levantó un error, se le muestra al usuario.
       if (err instanceof Error) {
+        console.error(err);
         alert("Error encontrado:\n\n" + err.message);
-        console.error(err)
       }
     } finally {
+      // En todo caso, se indica que no se está cargando nada al final.
       setIsLoading(false);
     }
   };
 
+  // Handler de click o envío de formulario de registro de usuarios.
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    // Se previenen las acciones por defecto de formularios HTML.
     e.preventDefault();
 
+    // Se obtiene una referencia al formulario y se valida.
     const form = e.currentTarget as HTMLFormElement;
 
     if (form.checkValidity()) {
+      // Si el formulario no contiene errores y no se están cargando datos,
+      // entonces se inicia una nueva carga de datos.
       if (!isLoading) {
         postForm(e);
       }
@@ -44,9 +58,11 @@ export default function Perfil() {
       return;
     }
 
+    // Se muestran errores el formulario al usuairo en caso de haber errores.
     form.reportValidity();
   };
 
+  // Se define y regresa el HTML de este componente/página.
   return (
     <main className="flex flex-col items-center bg-background text-primary text-center p-8 sm:min-h-[500px]">
       <h1 className="text-4xl font-extrabold mb-8">Agregar Usuario</h1>

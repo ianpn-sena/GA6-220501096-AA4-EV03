@@ -1,8 +1,10 @@
 "use client";
 
+// Define un componente que muestra información de un usuario individual
 export default function Usuario({ data } : { data : any}) {
     console.log(data);
 
+    // Regresa el HTML de este componente. Usa datos del parámetro "data".
     return (
         <>
             <h2 className="col-span-2 text-2xl font-extrabold mb-4">Usuario #{data.id}:</h2>

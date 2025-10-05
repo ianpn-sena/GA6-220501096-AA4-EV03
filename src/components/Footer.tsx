@@ -1,6 +1,8 @@
 import Image from "next/image";
 
+// Define el footer del layout global. Contiene informacion acerca de la empresa.
 export default function About() {
+  // Regresa el HTML del footer.
   return (
     <footer className="block sm:flex justify-between p-8 text-center sm:text-start align-middle">
         <div className="block lg:inline-block my-auto">

@@ -10,11 +10,13 @@ export const metadata: Metadata = {
 
 import "./globals.css";
 
+// Define la estructura principal de la aplicación, con un layout global compartido.
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Se regresa el HTML del layout, incluyendo un header y un footer.
   return (
     <html lang="es">
       <body className="bg-foreground text-background">
